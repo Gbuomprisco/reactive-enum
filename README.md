@@ -1,29 +1,75 @@
-**💛 You can help the author become a full-time open-source maintainer by [sponsoring him on GitHub](https://github.com/sponsors/egoist).**
-
 ---
 
-# my-ts-lib
+# Reactive Enum
 
-[![npm version](https://badgen.net/npm/v/my-ts-lib)](https://npm.im/my-ts-lib)
+### A utility to automatically generate a typed reactive enum with Rx
 
-## Using this template
-
-- Search `my-ts-lib` and replace it with your custom package name.
-- Search `egoist` and replace it with your name.
-
-Features:
-
-- Package manager [pnpm](https://pnpm.js.org/), safe and fast
-- Release with [semantic-release](https://npm.im/semantic-release)
-- Bundle with [tsup](https://github.com/egoist/tsup)
-- Test with [jest](https://jestjs.io/)
+Not yet production ready.
 
 ## Install
 
 ```bash
-npm i my-ts-lib
+npm i @ngbites/reactive-enum
 ```
 
-## License
+## Usage
 
-MIT &copy; [EGOIST](https://github.com/sponsors/egoist)
+This utility is particularly useful with framework such as Angular to 
+automatically generate a set of reactive streams, so that you can use them 
+in your template effortlessly.
+
+### Basic Usage
+
+```typescript
+// declare an enum
+enum Status {
+  Initial,
+  Pending,
+  Success,
+  Error
+}
+
+// pass your enum to "reactiveEnum"
+const status = reactiveEnum(Status);
+
+// "status" has now autmatically generated a method for each value of the enum
+status.initial$.subscribe();
+status.pending$.subscribe();
+status.success$.subscribe();
+status.error$.subscribe();
+```
+
+### Passing an initial value
+```typescript
+const status = reactiveEnum(Status, {
+  initialValue: Status.Initial,
+});
+
+status.value$.subscribe(console.log); // Status.Initial
+```
+
+### Updating the value
+```typescript
+const status = reactiveEnum(Status);
+
+status.value$.subscribe(console.log); // Status.Success
+
+status.set(Status.Success);
+```
+
+### Resetting to the original value
+```typescript
+const status = reactiveEnum(Status, {
+  initialValue: Status.Initial
+});
+
+status.value$.subscribe(console.log); 
+// 1. Status.Initial
+// 2. Status.Success
+// 3. Status.Initial
+
+status.set(Status.Success);
+status.reset();
+```
+
+
