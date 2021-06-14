@@ -100,17 +100,8 @@ export function reactiveEnum<State extends Enum<State>>(
 
   Object.assign(container, {
     set: (value: State) => state$.next(value),
-  });
-
-  Object.assign(container, {
     reset: () => state$.next(initialValue),
-  });
-
-  Object.assign(container, {
     release: () => state$.unsubscribe(),
-  });
-
-  Object.assign(container, {
     value$: state$.asObservable(),
     value: () => state$.getValue(),
   });

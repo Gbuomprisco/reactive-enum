@@ -1,6 +1,6 @@
 {
   "name": "@ngbites/reactive-enum",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A utility to automatically generate a typed reactive enum with Rx",
   "publishConfig": {
     "access": "public"
@@ -8,6 +8,14 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngbites/reactive-enum.git"
+  },
+  "author": {
+    "email": "giancarlopsk@gmail.com",
+    "name": "Giancarlo Buomprisco"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "exports": {
@@ -18,7 +26,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts-resolve",
     "test": "jest",
-    "publish": "npm login --registry=https://npm.pkg.github.com --scope=@ngbites",
+    "publish": "npm publish --access public",
     "prepublishOnly": "npm run build"
   },
   "license": "MIT",
